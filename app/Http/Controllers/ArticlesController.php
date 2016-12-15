@@ -10,6 +10,16 @@ use Carbon\Carbon;
 
 class ArticlesController extends Controller {
 
+
+    /**
+     * We Show articles only to auth users;
+     * ArticlesController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -42,8 +52,15 @@ class ArticlesController extends Controller {
 		//$input = Request::all();
 
        // $input['published_at'] = Carbon::now();
-        $request['user_id'] = 1;
-        Article::create($request->all());
+
+        //Article::create($request->all());
+//******Prev release***********************************************
+    //    $article = new Article($request->all());
+
+     //   Auth::user()->articles()->save($article);
+ //***** END Prev Release **********************************************
+
+        Auth::user()->articles()->create($request->all());
 
         return redirect('articles');
 	}
@@ -51,12 +68,12 @@ class ArticlesController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  $article
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Article $article)
 	{
-		$article = Article::findOrFail($id);
+		//$article = Article::findOrFail($id);
 
        // dd($article->updated_at);
 
@@ -66,12 +83,12 @@ class ArticlesController extends Controller {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  $article
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Article $article)
 	{
-		$article = Article::findOrFail($id);
+		//$article = Article::findOrFail($id);
 
         return view('articles.edit', compact('article'));
 	}
@@ -79,12 +96,13 @@ class ArticlesController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param $article
+     * @param $request
 	 * @return Response
 	 */
-	public function update($id, ArticleRequest $request)
+	public function update(Article $article, ArticleRequest $request)
 	{
-        $article = Article::findOrFail($id);
+        //$article = Article::findOrFail($id);
 
         $article->update($request->all());
 
@@ -94,10 +112,10 @@ class ArticlesController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  $article
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Article $article)
 	{
 		//
 	}

@@ -10,6 +10,17 @@ use Request;
 
 class FundsController extends Controller {
 
+
+
+    /**
+     * We Show funds only to auth users;
+     * ArticlesController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -60,12 +71,12 @@ class FundsController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param Fund $fund
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Fund $fund)
 	{
-		$fund = Fund::findOrFail($id);
+		//$fund = Fund::findOrFail($id);
 
         return view('funds.show', compact('fund'));
 	}
@@ -73,27 +84,28 @@ class FundsController extends Controller {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param Fund $fund
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Fund $fund)
 	{
-		$fund = Fund::findOrFail($id);
+		//$fund = Fund::findOrFail($id);
 
         //$fund['amount'] = ($fund['amount'] / 100);
 
         return view('funds.edit', compact('fund'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id, FundRequest $request)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Fund $fund
+     * @param FundRequest $request
+     * @return Response
+     */
+	public function update(Fund $fund, FundRequest $request)
 	{
-        $fund = Fund::findOrFail($id);
+        //$fund = Fund::findOrFail($id);
 
         $request['added_by'] = 1;
 
@@ -107,10 +119,10 @@ class FundsController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  Fund $fund
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Fund $fund)
 	{
 		//
 	}
