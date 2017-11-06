@@ -11,13 +11,25 @@
 |
 */
 
+/*Route::get('/', function(){
+    dd(app('config')['database']['default']);
+});*/
 Route::get('/', 'WelcomeController@index');
+
 
 Route::get('home', 'HomeController@index');
 
 Route::resource('articles', 'ArticlesController');
 
 Route::resource('funds', 'FundsController');
+
+Route::resource('tags', 'TagsController');
+
+Route::resource('categories', 'CategoriesController');
+
+Route::resource('accounts', 'AccountsController');
+
+Route::resource('groups', 'GroupsController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

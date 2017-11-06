@@ -1,6 +1,8 @@
 <?php namespace App\Http\Requests;
 
+use App\Article;
 use App\Http\Requests\Request;
+use Auth;
 
 class ArticleRequest extends Request {
 
@@ -11,7 +13,7 @@ class ArticleRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+       return true;
 	}
 
 	/**

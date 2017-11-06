@@ -8,8 +8,7 @@
     <h1>Добави нова транзакция</h1>
 
     <hr>
-
-    {!! Form::open(['url' => '/funds']) !!}
+    {!! Form::model($fund = new \App\Fund, ['url' => '/funds']) !!}
 
    @include('funds.form', ['submitFormText' => 'Запис'])
 

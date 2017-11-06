@@ -28,9 +28,9 @@ class CreateFundsTable extends Migration
                   ->references('id')
                   ->on('users');
 
-            $table->foreign('group_id')
-                ->references('id')
-                ->on('groups');
+//            $table->foreign('group_id')
+//                ->references('id')
+//                ->on('groups');
         });
     }
 

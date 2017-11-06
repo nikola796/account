@@ -1,5 +1,12 @@
 <?php namespace App\Providers;
 
+use App\Account;
+use App\Article;
+use App\Category;
+use App\Fund;
+use App\Group;
+use App\Tag;
+use Auth;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -24,9 +31,47 @@ class RouteServiceProvider extends ServiceProvider {
 	{
 		parent::boot($router);
 
-		$router->model('articles', 'App\Article');
+		$router->bind('articles', function($id)
+        {
+            //$articleId = $this->route('article');
 
-		$router->model('funds', 'App\Fund');
+            return Article::checkAuthor()->findOrFail($id);
+
+        });
+
+		//$router->model('funds', 'App\Fund');
+
+        $router->bind('funds', function($id){
+            return Fund::checkAuthor()->findOrFail($id);
+});
+
+        $router->bind('tags', function($name)
+    {
+        //$articleId = $this->route('article');
+
+        return Tag::checkAuthor($name)->firstOrFail();
+        //return Tag::where('name', $name)->where('user_id', Auth::id())->firstOrFail();
+
+    });
+
+        $router->bind('categories', function($name)
+        {
+            //$articleId = $this->route('article');
+
+            return Category::checkAuthor($name)->firstOrFail();
+            //return Tag::where('name', $name)->where('user_id', Auth::id())->firstOrFail();
+
+        });
+
+        $router->bind('accounts', function($name)
+        {
+            return Account::checkAuthor($name)->firstOrFail();
+        });
+
+        $router->bind('groups', function($name)
+        {
+            return Group::checkAuthor($name)->firstOrFail();
+        });
 
 //		$router->bind('articles', function($id){
 //		   return \App\Article::published()->findOrFail($id);

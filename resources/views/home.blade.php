@@ -14,4 +14,5 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" class="page" name="page_name" value="home">
 @endsection

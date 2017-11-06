@@ -10,11 +10,17 @@
     {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Parent Form Input -->
+<!-- Category Form Input -->
 <div class="form-group">
-    {!! Form::label('depth', 'Родител:') !!}
-    {!! Form::select('depth',array(null => 'Няма') + App\Fund::lists('name', 'id'), null, ['id'=> 'depth','class' => 'form-control']) !!}
+    {!! Form::label('category_list', 'Категория:') !!}
+    {!! Form::select('category_list[]', $categories, null, ['id'=> 'category_list','class' => 'form-control', 'multiple']) !!}
 </div>
+
+<!-- Parent Category Form Input -->
+{{--<div class="form-group">--}}
+    {{--{!! Form::label('grant_parent', 'Родител на Категория:') !!}--}}
+    {{--{!! Form::select('grant_parent[]', $categories, null, ['id'=> 'grant_parent','class' => 'form-control', 'multiple']) !!}--}}
+{{--</div>--}}
 
 <!-- Amount Form Input -->
 <div class="form-group">
@@ -38,3 +44,18 @@
 <div class="form-group">
     {!! Form::submit($submitFormText, ['class' => 'btn btn-primary form-control']) !!}
 </div>
+
+@section('footer')
+
+    <script>
+        $('#category_list').select2({
+            placeholder : 'Изберете категория',
+            tags: true
+        });
+//        $('#grant_parent').select2({
+//            placeholder : 'Изберете родител на категорията',
+//            tags: true
+//        });
+    </script>
+
+@endsection
