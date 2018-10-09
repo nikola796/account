@@ -4,6 +4,9 @@
 @section('content')
     <h1>Всички категории на {{ Auth::user()->name }}</h1>
     <hr>
+
+    {!! link_to('categories/create', 'Нова категория', [ 'class' => "btn btn-default active", 'role' =>" button"]) !!}
+
     @if(isset($funds))
         @foreach($funds as $key => $tag)
 

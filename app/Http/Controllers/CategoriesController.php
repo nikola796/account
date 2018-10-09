@@ -1,10 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Category;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Auth;
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 
 class CategoriesController extends Controller {
 
@@ -21,7 +19,7 @@ class CategoriesController extends Controller {
     public function index()
     {
         $category = Auth::user()->categories;
-//dd($category);
+        //dd($category);
         foreach ($category as $ta){
             $funds[$ta['name']] = $ta->funds()->get();
             //$t[] = $ta['name'];
@@ -41,6 +39,46 @@ class CategoriesController extends Controller {
 
         return view('categories.show', compact('funds', 'cat_name'));
 
+    }
+
+    public function create()
+    {
+
+        $categories = Auth::user()->categories()->lists('name', 'id');
+
+        return view('categories.create', compact('categories'));
+    }
+
+    public function store(CategoryRequest $request)
+    {
+
+        //dd($request);
+        $this->createCategory($request);
+
+        session()->flash('flash_message', 'Your article has been created');
+        //session()->flash('flash_message_important', true);
+
+        // return redirect('articles');
+        // $input = $request->all();
+
+
+        ///  $input['amount'] = round($input['amount'], 2) * 100;
+
+        // $input['event_data'] = Carbon::now();
+
+        //   Fund::create($input);
+
+        return redirect('categories');
+    }
+
+    private function createCategory(CategoryRequest $request)
+    {
+        $category = Auth::user()->categories()->create($request->all());
+
+
+        //$this->syncTags($fund, $request->input('category_list'));
+
+        return $category;
     }
 
 }
